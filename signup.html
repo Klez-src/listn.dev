@@ -1,0 +1,91 @@
+<html>
+<head>
+    <title>listn.dev - Sign Up</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Fade out effect */
+        .fade-out {
+            animation: fadeOut 1s forwards;
+        }
+
+        @keyframes fadeOut {
+            0% {
+                opacity: 1;
+                background-color: rgba(0, 0, 0, 1);
+            }
+            100% {
+                opacity: 0;
+                background-color: rgba(0, 0, 0, 0);
+            }
+        }
+
+        /* Initial black screen */
+        .black-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 1); /* Fully opaque */
+            z-index: 9999;
+        }
+
+        /* Allow interaction with the form */
+        .interactive {
+            position: relative;
+            z-index: 1; /* Ensure form is above the black screen */
+        }
+    </style>
+    <script>
+        window.onload = function() {
+            // Fade out the black screen after 0.5 seconds
+            setTimeout(function() {
+                const blackScreen = document.getElementById('black-screen');
+                blackScreen.classList.add('fade-out');
+
+                // Hide the black screen completely after the fade-out
+                setTimeout(function() {
+                    blackScreen.style.display = 'none'; // Hide the black screen completely
+                }, 1000); // Match this duration with the fade-out duration
+            }, 500); // 0.5 seconds delay
+        };
+
+        function handleSignup(event) {
+            event.preventDefault(); // Prevent form submission
+
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const inviteCode = document.getElementById('invite-code').value;
+
+            // Validate invite code
+            if (inviteCode !== "listn") {
+                alert("Invalid invite code. Please use 'listn'.");
+                return;
+            }
+
+            // Save user data to local storage (for demonstration purposes)
+            const userData = { username, password, inviteCode };
+            localStorage.setItem(username, JSON.stringify(userData));
+
+            // Redirect to login page
+            window.location.href = 'login.html';
+        }
+    </script>
+</head>
+<body class="bg-[#141414] flex items-center justify-center min-h-screen">
+    <div id="black-screen" class="black-screen"></div>
+    <div class="text-center interactive">
+        <h1 class="text-white text-5xl font-bold mb-2 leading-none">listn <span class="text-gray-500 text-sm align-top">BETA</span></h1>
+        <div class="bg-[#1B1B1B] p-6 rounded-lg shadow-lg w-80">
+            <h2 class="text-white text-2xl font-semibold mb-4">Sign Up</h2>
+            <form onsubmit="handleSignup(event)">
+                <input type="text" id="username" placeholder="Username" class="w-full p-3 mb-3 bg-[#292929] text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                <input type="password" id="password" placeholder="Password" class="w-full p-3 mb-4 bg-[#292929] text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                <input type="text" id="invite-code" placeholder="Invite Code" class="w-full p-3 mb-4 bg-[#292929] text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                <button type="submit" class="w-full p-3 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700">Sign Up</button>
+            </form>
+            <p class="text-gray-500 mt-4">already have an account? <a href="login.html" class="text-white underline">Log In</a></p>
+        </div>
+    </div>
+</body>
+</html>
