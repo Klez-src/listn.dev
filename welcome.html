@@ -1,0 +1,46 @@
+<html>
+<head>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .circle-container:hover .edit-text {
+            opacity: 1;
+        }
+        .edit-text {
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+    </style>
+</head>
+<body class="bg-[#1B1B1B] text-gray-400 flex items-start justify-start min-h-screen p-4">
+    <div class="bg-[#121212] p-6 rounded-lg shadow-lg w-80 h-full flex flex-col justify-between">
+        <div>
+            <div class="flex justify-center mb-4 relative circle-container">
+                <div class="bg-gray-300 rounded-full w-24 h-24 flex items-center justify-center overflow-hidden">
+                    <img id="profileImage" src="" alt="Profile Image" class="hidden w-full h-full object-cover">
+                    <span class="edit-text absolute text-white">Edit</span>
+                </div>
+                <input type="file" id="fileInput" accept="image/png" class="hidden" onchange="loadFile(event)">
+            </div>
+            <div class="text-gray-400 mb-2">UID: idk =/</div>
+            <div class="text-gray-400">You're <span class="font-bold text-gray-400">listn's</span> referral</div>
+        </div>
+        <div class="text-gray-400 mt-4">active subs: 0</div>
+        <div class="text-xs text-gray-500 mt-4">
+            <p>follow the consumer rights act of 2015 to be viable for any and all refunds.</p>
+            <p>listn.dev, 2025</p>
+        </div>
+    </div>
+
+    <script>
+        document.querySelector('.circle-container').addEventListener('click', function() {
+            document.getElementById('fileInput').click();
+        });
+
+        var loadFile = function(event) {
+            var image = document.getElementById('profileImage');
+            image.src = URL.createObjectURL(event.target.files[0]);
+            image.classList.remove('hidden');
+        };
+    </script>
+</body>
+</html>
