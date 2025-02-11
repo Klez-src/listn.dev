@@ -1,5 +1,19 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome</title>
+    <script>
+        // Check if the user is logged in
+        window.onload = function() {
+            const isLoggedIn = localStorage.getItem('isLoggedIn');
+            if (isLoggedIn !== 'true') {
+                // Redirect to login page if not logged in
+                window.location.href = 'login.html';
+            }
+        };
+    </script>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         body {
