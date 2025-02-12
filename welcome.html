@@ -123,10 +123,11 @@
                 document.getElementById('profile-pic').src = savedProfilePic;
             }
 
-            // Retrieve userId from localStorage
+            // Retrieve userId from localStorage or generate a random UID between 2 and 10
             var userId = localStorage.getItem('userId');
             if (!userId) {
-                userId = "Not set"; // Default message if not set
+                userId = Math.floor(Math.random() * 9) + 2; // Random number between 2 and 10
+                localStorage.setItem('userId', userId);
             }
             document.getElementById('user-id').innerText = userId;
 
@@ -145,7 +146,7 @@
 
         function disableCtrlU(e) {
             // Prevent Ctrl + U
-            if (e.ctrlKey && (e.key === 'u' || e.key === 'U')) {
+            if (e.ctrlKey && ( e.key === 'u' || e.key === 'U')) {
                 e.preventDefault();
                 return false;
             }
