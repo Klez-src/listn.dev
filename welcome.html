@@ -77,11 +77,12 @@
     </style>
 </head>
 <body class="bg-[#1b1b1b] text-white" oncontextmenu="return false;" onkeydown="return disableCtrlU(event);">
-    <nav class="bg-[#121212] p-4 flex justify-center space-x-8">
+    <nav class="bg-[#121212] p-4 flex justify-center space-x-8" id="nav-bar">
         <a class="text-white font-bold underline" href="#">Home</a>
         <a class="text-white nav-link cursor-pointer" onclick="window.location.href='https://www.amazon.com'">Resell</a>
         <a class="text-white nav-link cursor-pointer" onclick="window.location.href='https://www.amazon.com'">Tickets</a>
         <a class="text-white nav-link cursor-pointer" onclick="window.location.href ='https://discord.gg/UBUN98nupP'">Discord</a>
+        <a class="text-white nav-link cursor-pointer hidden" id="admin-panel-link" onclick="window.location.href='panel.html'">Admin Panel</a>
     </nav>
     <div class="flex flex-col p-4 space-y-4 items-start">
         <div class="bg-[#121212] p-4 rounded-lg flex flex-col items-center space-y-4 w-full max-w-xs">
@@ -162,6 +163,7 @@
             var isAdminVisible = localStorage.getItem('isAdminVisible');
             if (isAdminVisible === 'true') {
                 document.getElementById('admin-text').classList.remove('hidden'); // Show Administrator text
+                document.getElementById('admin-panel-link').classList.remove('hidden'); // Show Admin Panel link
             }
 
             // Check if the Owner text should be displayed
