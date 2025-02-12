@@ -55,7 +55,7 @@
     <div class="flex flex-col p-4 space-y-4 items-start">
         <div class="bg-[#121212] p-4 rounded-lg flex flex-col items-center space-y-4 w-full max-w-xs">
             <div class="relative profile-pic-container">
-                <img alt="User  profile picture" class="rounded-full" height="100" id="profile-pic" src="https://placehold.co/100x100/gray/gray" width="100"/>
+                <img alt="User   profile picture" class="rounded-full" height="100" id="profile-pic" src="https://placehold.co/100x100/gray/gray" width="100"/>
                 <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 rounded-full opacity-0 transition-opacity duration-300 edit-text">
                     <span class="text-white">Edit</span>
                 </div>
@@ -124,17 +124,10 @@
 
             let clickCount = 0; // Initialize click count
 
-            // Check if the Owner text should be displayed
-            var isOwnerVisible = localStorage.getItem('isOwnerVisible');
-            if (isOwnerVisible === 'true') {
-                document.getElementById('owner-text').classList.remove('hidden'); // Show Owner text
-            }
-
             document.getElementById('hidden-button').addEventListener('click', function() {
                 clickCount++; // Increment click count
                 if (clickCount === 3) {
-                    document.getElementById('owner-text').classList.remove('hidden'); // Show Owner text
-                    localStorage.setItem('isOwnerVisible', 'true'); // Save visibility state
+                    location.reload(); // Refresh the page
                 }
             });
         }
