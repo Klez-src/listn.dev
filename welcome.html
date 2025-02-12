@@ -85,23 +85,34 @@
         <a class="text-white nav-link cursor-pointer hidden" id="admin-panel-link" onclick="window.location.href='panel.html'">Admin Panel</a>
     </nav>
     <div class="flex flex-col p-4 space-y-4 items-start">
-        <div class="bg-[#121212] p-4 rounded-lg flex flex-col items-center space-y-4 w-full max-w-xs">
-            <div class="relative profile-pic-container">
-                <img alt="User  profile picture" class="rounded-full" height="100" id="profile-pic" src="https://placehold.co/100x100/gray/gray" width="100"/>
-                <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 rounded-full opacity-0 transition-opacity duration-300 edit-text">
-                    <span class="text-white">Edit</span>
+        <div class="flex space-x-4"> <!-- Added flex container for side-by-side layout -->
+            <div class="bg-[#121212] p-4 rounded-lg flex flex-col items-center space-y-4 w-full max-w-xs">
+                <div class="relative profile-pic-container">
+                    <img alt="User  profile picture" class="rounded-full" height="100" id="profile-pic" src="https://placehold.co/100x100/gray/gray" width="100"/>
+                    <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 rounded-full opacity-0 transition-opacity duration-300 edit-text">
+                        <span class="text-white">Edit</span>
+                    </div>
+                    <input accept="image/*" class="hidden" id="file-input" onchange="loadFile(event)" type="file"/>
                 </div>
-                <input accept="image/*" class="hidden" id="file-input" onchange="loadFile(event)" type="file"/>
+                <!-- Glowing Owner text -->
+                <p id="owner-text" class="hidden">Owner</p>
+                <!-- Glowing Administrator text -->
+                <p id="admin-text" class="hidden">Administrator</p>
+                <div class="text-center">
+                    <p>UID: <span id="user-id"></span></p>
+                    <p>You're <span class="font-bold">listn's</span> referral</p>
+                    <p>active subs: 0</p>
+                    <p class="text-gray-400 text-sm mt-2">follow the consumer rights act of 2015 to be viable for any and all refunds.<br/>listn.dev, 2025</p>
+                </div>
             </div>
-            <!-- Glowing Owner text -->
-            <p id="owner-text" class="hidden">Owner</p>
-            <!-- Glowing Administrator text -->
-            <p id="admin-text" class="hidden">Administrator</p>
-            <div class="text-center">
-                <p>UID: <span id="user-id"></span></p>
-                <p>You're <span class="font-bold">listn's</span> referral</p>
-                <p>active subs: 0</p>
-                <p class="text-gray-400 text-sm mt-2">follow the consumer rights act of 2015 to be viable for any and all refunds.<br/>listn.dev, 2025</p>
+            <div class="bg-[#121212] p-4 rounded-lg w-[700px] h-[90px] flex items-center"> <!-- New box -->
+                <div class="flex items-center">
+                    <img src="compmurder.png" alt="Game Image" class="w-[90px] h-[90px] rounded-lg"/> <!-- Square image with rounded corners -->
+                    <div class="ml-4"> <!-- Margin left for spacing -->
+                        <p class="font-bold">[CS:2] Compkiller</p> <!-- Bold text -->
+                        <p class="text-gray-400 text-sm">Available</p> <!-- Smaller light grey text -->
+                    </div>
+                </div>
             </div>
         </div>
         <div class="bg-[#121212] p-4 rounded-lg text-center flex flex-col justify-center w-full max-w-xs">
