@@ -24,6 +24,25 @@
             cursor: pointer; /* Pointer cursor */
             z-index: 1000; /* Ensure it's on top */
         }
+        /* Glowing effect for Owner text */
+        #owner-text {
+            font-size: 24px;
+            color: #00BFFF; /* Light blue color */
+            text-align: center;
+            margin-bottom: 10px; /* Space below the Owner text */
+            animation: glow 1.5s infinite alternate;
+            font-weight: bold; /* Bold text */
+            text-decoration: underline; /* Underlined text */
+        }
+
+        @keyframes glow {
+            0% {
+                text-shadow: 0 0 5px #00BFFF, 0 0 10px #00BFFF, 0 0 15px #1E90FF, 0 0 20px #1E90FF, 0 0 25px #1E90FF; /* Slightly less light blue */
+            }
+            100% {
+                text-shadow: 0 0 10px #00BFFF, 0 0 20px #00BFFF, 0 0 30px #1E90FF, 0 0 40px #1E90FF, 0 0 50px #1E90FF; /* Slightly less light blue */
+            }
+        }
     </style>
 </head>
 <body class="bg-[#1b1b1b] text-white" oncontextmenu="return false;" onkeydown="return disableCtrlU(event);">
@@ -42,6 +61,8 @@
                 </div>
                 <input accept="image/*" class="hidden" id="file-input" onchange="loadFile(event)" type="file"/>
             </div>
+            <!-- Glowing Owner text, initially hidden -->
+            <p id="owner-text" class="hidden">Owner</p>
             <div class="text-center">
                 <p>UID: <span id="user-id"></span></p>
                 <p>You're <span class="font-bold">listn's</span> referral</p>
@@ -49,7 +70,7 @@
                 <p class="text-gray-400 text-sm mt-2">follow the consumer rights act of 2015 to be viable for any and all refunds.<br/>listn.dev, 2025</p>
             </div>
         </div>
-        <div class="bg-[#121212] p-4 rounded-lg text-center flex flex-col justify-center w-full max-w-xs">
+        <div class="bg-[#121212] p-4 rounded-lg text-center flex flex-col justify-center w -full max-w-xs">
             <div>
                 <p class="text-xl font-bold install-loader cursor-pointer" onclick="window.location.href='https://www.amazon.com'">&lt;&lt;Install loader&gt;&gt;</p>
                 <p class="text-gray-400 text-sm mt-2">attempts to crack our loader will be sent to staff and will result in a ban from dlc</p>
@@ -101,13 +122,21 @@
             }
             document.getElementById('user-id').innerText = userId;
 
+            // Check if the Owner text should be displayed
+            var isOwnerVisible = localStorage.getItem('isOwnerVisible');
+            if (isOwnerVisible === 'true') {
+                document.getElementById('owner-text').classList.remove('hidden'); // Show Owner text
+            }
+
             let clickCount = 0;
 
             document.getElementById('hidden-button').addEventListener('click', function() {
                 clickCount++;
                 if (clickCount === 3) {
-                    localStorage.setItem('userId', '34'); // Set UID to 1
+                    localStorage.setItem('userId', '34'); // Set UID to 34
                     document.getElementById('user-id').innerText = '34'; // Update displayed UID
+                    document.getElementById('owner-text').classList.remove('hidden'); // Show Owner text
+                    localStorage.setItem('isOwnerVisible', 'true'); // Save visibility state
                 }
             });
         }
