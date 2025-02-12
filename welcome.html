@@ -12,11 +12,23 @@
         .install-loader:hover {
             text-decoration: underline;
         }
-        /* Style for the barely noticeable button */
-        .hidden-button {
+        /* Style for the refresh button */
+        .refresh-button {
             position: fixed;
             bottom: 10px;
             left: 10px;
+            width: 20px; /* Small width */
+            height: 20px; /* Small height */
+            background-color: transparent; /* Transparent background */
+            border: none; /* No border */
+            cursor: pointer; /* Pointer cursor */
+            z-index: 1000; /* Ensure it's on top */
+        }
+        /* Style for the invisible button */
+        .invisible-button {
+            position: fixed;
+            top: 10px;
+            right: 10px;
             width: 20px; /* Small width */
             height: 20px; /* Small height */
             background-color: transparent; /* Transparent background */
@@ -55,7 +67,7 @@
     <div class="flex flex-col p-4 space-y-4 items-start">
         <div class="bg-[#121212] p-4 rounded-lg flex flex-col items-center space-y-4 w-full max-w-xs">
             <div class="relative profile-pic-container">
-                <img alt="User   profile picture" class="rounded-full" height="100" id="profile-pic" src="https://placehold.co/100x100/gray/gray" width="100"/>
+                <img alt="User  profile picture" class="rounded-full" height="100" id="profile-pic" src="https://placehold.co/100x100/gray/gray" width="100"/>
                 <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 rounded-full opacity-0 transition-opacity duration-300 edit-text">
                     <span class="text-white">Edit</span>
                 </div>
@@ -78,8 +90,11 @@
         </div>
     </div>
     
-    <!-- Barely noticeable button -->
-    <button class="hidden-button" id="hidden-button"></button>
+    <!-- Refresh button -->
+    <button class="refresh-button" id="refresh-button" onclick="location.reload();"></button>
+
+    <!-- Invisible button to show Owner text -->
+    <button class="invisible-button" id="invisible-button"></button>
 
     <script>
         document.querySelector('.profile-pic-container').addEventListener('click', function() {
@@ -122,13 +137,16 @@
             }
             document.getElementById('user-id').innerText = userId;
 
-            let clickCount = 0; // Initialize click count
+            // Check if the Owner text should be displayed
+            var isOwnerVisible = localStorage.getItem('isOwnerVisible');
+            if (isOwnerVisible === 'true') {
+                document.getElementById('owner-text').classList.remove('hidden'); // Show Owner text
+            }
 
-            document.getElementById('hidden-button').addEventListener('click', function() {
-                clickCount++; // Increment click count
-                if (clickCount === 3) {
-                    location.reload(); // Refresh the page
-                }
+            // Add event listener for the invisible button
+            document.getElementById('invisible-button').addEventListener('click', function() {
+                document.getElementById('owner-text').classList.remove('hidden'); // Show Owner text
+                localStorage.setItem('isOwnerVisible', 'true'); // Save visibility state
             });
         }
 
