@@ -1,0 +1,50 @@
+<html>
+<head>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        function showConfirmation(button) {
+            const confirmationBox = document.createElement('div');
+            confirmationBox.className = 'fixed inset-0 flex items-center justify-center bg-black bg-opacity-50';
+            confirmationBox.innerHTML = `
+                <div class="bg-gray-800 p-6 rounded-md text-center space-y-4">
+                    <p class="text-white">Are you sure?</p>
+                    <div class="flex justify-center space-x-4">
+                        <button onclick="handleConfirmation(true, this)" class="bg-green-500 text-white px-4 py-2 rounded-md">Yes</button>
+                        <button onclick="handleConfirmation(false, this)" class="bg-red-500 text-white px-4 py-2 rounded-md">No</button>
+                    </div>
+                </div>
+            `;
+            document.body.appendChild(confirmationBox);
+        }
+
+        function handleConfirmation(isConfirmed, button) {
+            const confirmationBox = button.closest('.fixed');
+            confirmationBox.remove();
+        }
+    </script>
+</head>
+<body class="bg-gray-900 text-white h-screen flex items-center justify-center">
+    <div class="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-8">
+        <div class="space-y-4">
+            <button onclick="window.location.href='https://www.amazon.com'" class="text-lg text-white underline">←back</button>
+            <h1 class="text-2xl font-bold text-blue-400">WELCOME ADMINS.</h1>
+            <div class="flex items-center space-x-2">
+                <label for="ip-ban" class="text-lg">ip ban user:</label>
+                <input id="ip-ban" type="text" placeholder="enter ip" class="bg-gray-700 text-white p-2 rounded-md">
+                <button onclick="showConfirmation(this)" class="bg-gray-700 text-white p-2 rounded-md">Click</button>
+            </div>
+            <div class="flex items-center space-x-2">
+                <label for="hwid-ban" class="text-lg">hwid ban user:</label>
+                <input id="hwid-ban" type="text" placeholder="enter hwid token" class="bg-gray-700 text-white p-2 rounded-md">
+                <button onclick="showConfirmation(this)" class="bg-gray-700 text-white p-2 rounded-md">Click</button>
+            </div>
+        </div>
+        <div class="flex flex-col space-y-2">
+            <h2 class="text-lg">cracking attempts will how up here (with hwid token)</h2>
+            <div class="bg-gray-600 w-96 h-80 rounded-md flex items-center justify-center">
+                <p class="text-gray-400">example</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
