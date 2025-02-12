@@ -1,95 +1,67 @@
 <html>
- <head>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
-  <style>
-   .profile-pic-container:hover .edit-text {
+<head>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+    <style>
+        .profile-pic-container:hover .edit-text {
             opacity: 1;
         }
-    .nav-link:hover {
+        .nav-link:hover {
             text-decoration: underline;
         }
-    .install-loader:hover {
+        .install-loader:hover {
             text-decoration: underline;
         }
-    /* Style for the barely noticeable button */
-    .hidden-button {
-        position: fixed;
-        bottom: 10px;
-        left: 10px;
-        width: 20px; /* Small width */
-        height: 20px; /* Small height */
-        background-color: transparent; /* Transparent background */
-        border: none; /* No border */
-        cursor: pointer; /* Pointer cursor */
-        z-index: 1000; /* Ensure it's on top */
-    }
-  </style>
- </head>
- <body class="bg-[#1b1b1b] text-white" oncontextmenu="return false;" onkeydown="return disableCtrlU(event);">
-  <nav class="bg-[#121212] p-4 flex justify-center space-x-8">
-   <a class="text-white font-bold underline" href="#">
-    Home
-   </a>
-   <a class="text-white nav-link cursor-pointer" onclick="window.location.href='https://www.amazon.com'">
-    Resell
-   </a>
-   <a class="text-white nav-link cursor-pointer" onclick="window.location.href='https://www.amazon.com'">
-    Tickets
-   </a>
-   <a class="text-white nav-link cursor-pointer" onclick="window.location.href='https://www.amazon.com'">
-    Discord
-   </a>
-  </nav>
-  <div class="flex flex-col p-4 space-y-4 items-start">
-   <div class="bg-[#121212] p-4 rounded-lg flex flex-col items-center space-y-4 w-full max-w-xs">
-    <div class="relative profile-pic-container">
-     <img alt="User  profile picture" class="rounded-full" height="100" id="profile-pic" src="https://placehold.co/100x100/gray/gray" width="100"/>
-     <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 rounded-full opacity-0 transition-opacity duration-300 edit-text">
-      <span class="text-white">
-       Edit
-      </span>
-     </div>
-     <input accept="image/*" class="hidden" id="file-input" onchange="loadFile(event)" type="file"/>
+        /* Style for the barely noticeable button */
+        .hidden-button {
+            position: fixed;
+            bottom: 10px;
+            left: 10px;
+            width: 20px; /* Small width */
+            height: 20px; /* Small height */
+            background-color: transparent; /* Transparent background */
+            border: none; /* No border */
+            cursor: pointer; /* Pointer cursor */
+            z-index: 1000; /* Ensure it's on top */
+        }
+    </style>
+</head>
+<body class="bg-[#1b1b1b] text-white" oncontextmenu="return false;" onkeydown="return disableCtrlU(event);">
+    <nav class="bg-[#121212] p-4 flex justify-center space-x-8">
+        <a class="text-white font-bold underline" href="#">Home</a>
+        <a class="text-white nav-link cursor-pointer" onclick="window.location.href='https://www.amazon.com'">Resell</a>
+        <a class="text-white nav-link cursor-pointer" onclick="window.location.href='https://www.amazon.com'">Tickets</a>
+        <a class="text-white nav-link cursor-pointer" onclick="window.location.href ='https://www.amazon.com'">Discord</a>
+    </nav>
+    <div class="flex flex-col p-4 space-y-4 items-start">
+        <div class="bg-[#121212] p-4 rounded-lg flex flex-col items-center space-y-4 w-full max-w-xs">
+            <div class="relative profile-pic-container">
+                <img alt="User  profile picture" class="rounded-full" height="100" id="profile-pic" src="https://placehold.co/100x100/gray/gray" width="100"/>
+                <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 rounded-full opacity-0 transition-opacity duration-300 edit-text">
+                    <span class="text-white">Edit</span>
+                </div>
+                <input accept="image/*" class="hidden" id="file-input" onchange="loadFile(event)" type="file"/>
+            </div>
+            <div class="text-center">
+                <p>UID: <span id="user-id"></span></p>
+                <p>You're <span class="font-bold">listn's</span> referral</p>
+                <p>active subs: 0</p>
+                <p class="text-gray-400 text-sm mt-2">follow the consumer rights act of 2015 to be viable for any and all refunds.<br/>listn.dev, 2025</p>
+            </div>
+        </div>
+        <div class="bg-[#121212] p-4 rounded-lg text-center flex flex-col justify-center w-full max-w-xs">
+            <div>
+                <p class="text-xl font-bold install-loader cursor-pointer" onclick="window.location.href='https://www.amazon.com'">&lt;&lt;Install loader&gt;&gt;</p>
+                <p class="text-gray-400 text-sm mt-2">attempts to crack our loader will be sent to staff and will result in a ban from dlc</p>
+            </div>
+        </div>
     </div>
-    <div class="text-center">
-     <p>
-      UID: <span id="user-id"></span>
-     </p>
-     <p>
-      You're
-      <span class="font-bold">
-       listn's
-      </span>
-      referral
-     </p>
-     <p>
-      active subs: 0
-     </p>
-     <p class="text-gray-400 text-sm mt-2">
-      follow the consumer rights act of 2015 to be viable for any and all refunds.
-      <br/>
-      listn.dev, 2025
-     </p>
-    </div>
-   </div>
-   <div class="bg-[#121212] p-4 rounded-lg text-center flex flex-col justify-center w-full max-w-xs">
-    <div>
-     <p class="text-xl font-bold install-loader cursor-pointer" onclick="window.location.href='https://www.amazon.com'">
-      &lt;&lt;Install loader&gt;&gt;
-     </p>
-     <p class="text-gray-400 text-sm mt-2">
-      attempts to crack our loader will be sent to staff and will result in a ban from dlc
-     </p>
-    </div>
-   </div>
-  </div>
-  
-  <!-- Barely noticeable button -->
-  <button class="hidden-button" id="hidden-button"></button>
+    
+    <!-- Barely noticeable button -->
+    <button class="hidden-button" id="hidden-button"></button>
 
-  <script>
-   document.querySelector('.profile-pic-container').addEventListener('click', function() {
+    <script>
+        document.querySelector('.profile-pic-container').addEventListener('click', function() {
             document.getElementById('file-input').click();
         });
 
@@ -101,7 +73,7 @@
                 var img = new Image();
                 img.src = reader.result;
                 img.onload = function() {
-                    var canvas = document.createElement('canvas ');
+                    var canvas = document.createElement('canvas');
                     var ctx = canvas.getContext('2d');
                     canvas.width = 100;
                     canvas.height = 100;
@@ -122,7 +94,6 @@
                 document.getElementById('profile-pic').src = savedProfilePic;
             }
 
-            // Retrieve userId from localStorage or generate a random UID between 9 and 15 characters
             var userId = localStorage.getItem('userId');
             if (!userId) {
                 var length = Math.floor(Math.random() * 7) + 9; // Random length between 9 and 15
@@ -131,10 +102,8 @@
             }
             document.getElementById('user-id').innerText = userId;
 
-            // Initialize click count
             let clickCount = 0;
 
-            // Add click event listener to the hidden button
             document.getElementById('hidden-button').addEventListener('click', function() {
                 clickCount++;
                 if (clickCount === 3) {
@@ -145,12 +114,11 @@
         }
 
         function disableCtrlU(e) {
-            // Prevent Ctrl + U
-            if (e.ctrlKey && ( e.key === 'u' || e.key === 'U')) {
+            if (e.ctrlKey && (e.key === 'u' || e.key === 'U')) {
                 e.preventDefault();
                 return false;
             }
         }
-  </script>
- </body>
+    </script>
+</body>
 </html>
