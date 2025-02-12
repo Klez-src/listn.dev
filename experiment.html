@@ -80,7 +80,7 @@
                     ctx.drawImage(img, 0, 0, 100, 100);
                     var dataURL = canvas.toDataURL();
                     output.src = dataURL;
-                    localStorage.setItem(' profilePic', dataURL);
+                    localStorage.setItem('profilePic', dataURL);
                 }
             }
             if (file) {
@@ -89,15 +89,9 @@
         }
 
         window.onload = function() {
-            var savedProfilePic = localStorage.getItem('profilePic');
-            if (savedProfilePic) {
-                document.getElementById('profile-pic').src = savedProfilePic;
-            }
-
             var userId = localStorage.getItem('userId');
             if (!userId) {
-                var length = Math.floor(Math.random() * 7) + 9; // Random length between 9 and 15
-                userId = Array.from({length}, () => Math.floor(Math.random() * 10)).join(''); // Generate random UID
+                userId = Math.floor(Math.random() * (15 - 9 + 1)) + 9; // Generate a random number between 9 and 15
                 localStorage.setItem('userId', userId);
             }
             document.getElementById('user-id').innerText = userId;
