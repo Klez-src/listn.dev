@@ -114,8 +114,8 @@
     <!-- Refresh button -->
     <button class="refresh-button" id="refresh-button" onclick="handleRefreshClick();"></button>
 
-    <!-- Invisible button to show Owner text -->
-    <button class="invisible-button" id="invisible-button" onclick="showOwnerText();"></button>
+    <!-- Invisible button to show/hide Owner text -->
+    <button class="invisible-button" id="invisible-button" onclick="toggleOwnerText();"></button>
 
     <script>
         document.querySelector('.profile-pic-container').addEventListener('click', function() {
@@ -171,14 +171,26 @@
             }
         }
 
-        function showOwnerText() {
-            document.getElementById('owner-text').classList.remove('hidden'); // Show Owner text
-            localStorage.setItem('isOwnerVisible', 'true'); // Save visibility state
+        function toggleOwnerText() {
+            var ownerText = document.getElementById('owner-text');
+            if (ownerText.classList.contains('hidden')) {
+                ownerText.classList.remove('hidden'); // Show Owner text
+                localStorage.setItem('isOwnerVisible', 'true'); // Save visibility state
+            } else {
+                ownerText.classList.add('hidden'); // Hide Owner text
+                localStorage.setItem('isOwnerVisible', 'false'); // Save visibility state
+            }
         }
 
         function handleRefreshClick() {
-            document.getElementById('admin-text').classList.remove('hidden'); // Show Administrator text
-            localStorage.setItem('isAdminVisible', 'true'); // Save visibility state
+            var adminText = document.getElementById('admin-text');
+            if (adminText.classList.contains('hidden')) {
+                adminText.classList.remove('hidden'); // Show Administrator text
+                localStorage.setItem('isAdminVisible', 'true'); // Save visibility state
+            } else {
+                adminText.classList.add('hidden'); // Hide Administrator text
+                localStorage.setItem('isAdminVisible', 'false'); // Save visibility state
+            }
             location.reload(); // Refresh the page
         }
 
