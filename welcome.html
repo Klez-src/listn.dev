@@ -46,6 +46,16 @@
             font-weight: bold; /* Bold text */
             text-decoration: underline; /* Underlined text */
         }
+        /* Glowing effect for Administrator text */
+        #admin-text {
+            font-size: 24px;
+            color: #FFB6C1; /* Light red color */
+            text-align: center;
+            margin-bottom: 10px; /* Space below the Administrator text */
+            animation: glow-admin 1.5s infinite alternate;
+            font-weight: bold; /* Bold text */
+            text-decoration: underline; /* Underlined text */
+        }
 
         @keyframes glow {
             0% {
@@ -53,6 +63,15 @@
             }
             100% {
                 text-shadow: 0 0 10px #ADD8E6, 0 0 20px #ADD8E6, 0 0 30px #A0C4E0, 0 0 40px #A0C4E0, 0 0 50px #A0C4E0; /* Slightly darker light blue */
+            }
+        }
+
+        @keyframes glow-admin {
+            0% {
+                text-shadow: 0 0 5px #FFB6C1, 0 0 10px #FFB6C1, 0 0 15px #FF69B4, 0 0 20px #FF69B4, 0 0 25px #FF69B4; /* Slightly darker light red */
+            }
+            100% {
+                text-shadow: 0 0 10px #FFB6C1, 0 0 20px #FFB6C1, 0 0 30px #FF69B4, 0 0 40px #FF69B4, 0 0 50px #FF69B4; /* Slightly darker light red */
             }
         }
     </style>
@@ -75,6 +94,8 @@
             </div>
             <!-- Glowing Owner text -->
             <p id="owner-text" class="hidden">Owner</p>
+            <!-- Glowing Administrator text -->
+            <p id="admin-text" class="hidden">Administrator</p>
             <div class="text-center">
                 <p>UID: <span id="user-id"></span></p>
                 <p>You're <span class="font-bold">listn's</span> referral</p>
@@ -91,10 +112,10 @@
     </div>
     
     <!-- Refresh button -->
-    <button class="refresh-button" id="refresh-button" onclick="location.reload();"></button>
+    <button class="refresh-button" id="refresh-button" onclick="handleRefreshClick();"></button>
 
     <!-- Invisible button to show Owner text -->
-    <button class="invisible-button" id="invisible-button"></button>
+    <button class="invisible-button" id="invisible-button" onclick="showOwnerText();"></button>
 
     <script>
         document.querySelector('.profile-pic-container').addEventListener('click', function() {
@@ -137,17 +158,28 @@
             }
             document.getElementById('user-id').innerText = userId;
 
+            // Check if the Administrator text should be displayed
+            var isAdminVisible = localStorage.getItem('isAdminVisible');
+            if (isAdminVisible === 'true') {
+                document.getElementById('admin-text').classList.remove('hidden'); // Show Administrator text
+            }
+
             // Check if the Owner text should be displayed
             var isOwnerVisible = localStorage.getItem('isOwnerVisible');
             if (isOwnerVisible === 'true') {
                 document.getElementById('owner-text').classList.remove('hidden'); // Show Owner text
             }
+        }
 
-            // Add event listener for the invisible button
-            document.getElementById('invisible-button').addEventListener('click', function() {
-                document.getElementById('owner-text').classList.remove('hidden'); // Show Owner text
-                localStorage.setItem('isOwnerVisible', 'true'); // Save visibility state
-            });
+        function showOwnerText() {
+            document.getElementById('owner-text').classList.remove('hidden'); // Show Owner text
+            localStorage.setItem('isOwnerVisible', 'true'); // Save visibility state
+        }
+
+        function handleRefreshClick() {
+            document.getElementById('admin-text').classList.remove('hidden'); // Show Administrator text
+            localStorage.setItem('isAdminVisible', 'true'); // Save visibility state
+            location.reload(); // Refresh the page
         }
 
         function disableCtrlU(e) {
