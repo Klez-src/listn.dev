@@ -2,6 +2,11 @@
 <head>
     <title>listn.dev - Log In</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .welcome-content {
+            display: none; /* Initially hide the welcome content */
+        }
+    </style>
     <script>
         function handleLogin(event) {
             event.preventDefault(); // Prevent form submission
@@ -15,25 +20,43 @@
             // Check if user exists and password matches
             if (userData && userData.password === password) {
                 alert("Login successful!");
-                // Redirect to a welcome page or dashboard
-                window.location.href = 'welcome.html'; // Change to your desired page
+                showWelcomePage(); // Show welcome page content
             } else {
                 alert("Invalid username or password.");
             }
         }
+
+        function showWelcomePage() {
+            // Hide the login form
+            document.getElementById('login-form').style.display = 'none'; 
+            // Show the welcome content
+            document.getElementById('welcome-content').style.display = 'block'; 
+        }
     </script>
 </head>
 <body class="bg-[#141414] flex items-center justify-center min-h-screen">
- `
     <div class="text-center">
         <h1 class="text-white text-5xl font-bold mb-2">Log In</h1>
-        <div class="bg-[#1B1B1B] p-6 rounded-lg shadow-lg w-80">
+        <div class="bg-[#1B1B1B] p-6 rounded-lg shadow-lg w-80" id="login-form">
             <form onsubmit="handleLogin(event)">
                 <input type="text" id="username" placeholder="Username" class="w-full p-3 mb-3 bg-[#292929] text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required>
                 <input type="password" id="password" placeholder="Password" class="w-full p-3 mb-4 bg-[#292929] text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required>
                 <button type="submit" class="w-full p-3 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700">Log In</button>
             </form>
             <p class="text-gray-500 mt-4">Don't have an account? <a href="signup.html" class="text-white underline">Sign Up</a></p>
+        </div>
+
+        <!-- Welcome Content -->
+        <div class="bg-[#1B1B1B] p-6 rounded-lg shadow-lg w-80 welcome-content" id="welcome-content">
+            <h2 class="text-white text-2xl font-semibold mb-4">Welcome!</h2>
+            <p class="text-white">You have successfully logged in.</p>
+            <p class="text-gray-400 text-sm mt-2">Enjoy your stay!</p>
+            <nav class="bg-[#121212] p-4 flex justify-center space-x-8 mt-4">
+                <a class="text-white font-bold underline" href="#">Home</a>
+                <a class="text-white nav-link cursor-pointer" onclick="window.location.href='https://www.amazon.com'">Resell</a>
+                <a class="text-white nav-link cursor-pointer" onclick="window.location.href='https://www.amazon.com'">Tickets</a>
+                <a class="text-white nav-link cursor-pointer" onclick="window.location.href ='https://www.amazon.com'">Discord</a>
+            </nav>
         </div>
     </div>
 </body>
