@@ -1,91 +1,155 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Welcome</title>
-    <script>
-        // Check if the user is logged in
-        window.onload = function() {
-            const isLoggedIn = localStorage.getItem('isLoggedIn');
-            if (isLoggedIn !== 'true') {
-                // Redirect to login page if not logged in
-                window.location.href = 'login.html';
-            }
-        };
-    </script>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        body {
-            background-color: #1B1B1B;
-            color: gray;
-            display: flex;
-            align-items: start;
-            justify-content: start;
-            min-height: 100vh;
-            padding: 1rem;
-            transition: background-color 1s ease;
-        }
-        .fade-out {
-            background-color: #121212;
-        }
-        .circle-container:hover .edit-text {
+<html>
+ <head>
+  <script src="https://cdn.tailwindcss.com">
+  </script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+  <style>
+   .profile-pic-container:hover .edit-text {
             opacity: 1;
         }
-        .edit-text {
-            opacity: 0;
-            transition: opacity 0.3s;
+    .nav-link:hover {
+            text-decoration: underline;
         }
-    </style>
-</head>
-<body class="bg-[#1B1B1B] text-gray-400 flex items-start justify-start min-h-screen p-4" onload="fadeIn()">
-    <div class="bg-[#121212] p-6 rounded-lg shadow-lg w-80 h-full flex flex-col justify-between">
-        <div>
-            <div class="flex justify-center mb-4 relative circle-container">
-                <div class="bg-gray-300 rounded-full w-24 h-24 flex items-center justify-center overflow-hidden">
-                    <img id="profileImage" src="" alt="Profile Image" class="hidden w-full h-full object-cover">
-                    <span class="edit-text absolute text-white">Edit</span>
-                </div>
-                <input type="file" id="fileInput" accept="image/png" class="hidden" onchange="loadFile(event)">
-            </div>
-            <div class="text-gray-400 mb-2">UID: idk =/</div>
-            <div class="text-gray-400">You're <span class="font-bold text-gray-400">listn's</span> referral</div>
-        </div>
-        <div class="text-gray-400 mt-4">active subs: 0</div>
-        <div class="text-xs text-gray-500 mt-4">
-            <p>follow the consumer rights act of 2015 to be viable for any and all refunds.</p>
-            <p>listn.dev, 2025</p>
-        </div>
+    .install-loader:hover {
+            text-decoration: underline;
+        }
+    /* Style for the barely noticeable button */
+    .hidden-button {
+        position: fixed;
+        bottom: 10px;
+        left: 10px;
+        width: 20px; /* Small width */
+        height: 20px; /* Small height */
+        background-color: transparent; /* Transparent background */
+        border: none; /* No border */
+        cursor: pointer; /* Pointer cursor */
+        z-index: 1000; /* Ensure it's on top */
+    }
+  </style>
+ </head>
+ <body class="bg-[#1b1b1b] text-white" oncontextmenu="return false;" onkeydown="return disableCtrlU(event);">
+  <nav class="bg-[#121212] p-4 flex justify-center space-x-8">
+   <a class="text-white font-bold underline" href="#">
+    Home
+   </a>
+   <a class="text-white nav-link cursor-pointer" onclick="window.location.href='https://www.amazon.com'">
+    Resell
+   </a>
+   <a class="text-white nav-link cursor-pointer" onclick="window.location.href='https://www.amazon.com'">
+    Tickets
+   </a>
+   <a class="text-white nav-link cursor-pointer" onclick="window.location.href='https://www.amazon.com'">
+    Discord
+   </a>
+  </nav>
+  <div class="flex flex-col p-4 space-y-4 items-start">
+   <div class="bg-[#121212] p-4 rounded-lg flex flex-col items-center space-y-4 w-full max-w-xs">
+    <div class="relative profile-pic-container">
+     <img alt="User  profile picture" class="rounded-full" height="100" id="profile-pic" src="https://placehold.co/100x100/gray/gray" width="100"/>
+     <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 rounded-full opacity-0 transition-opacity duration-300 edit-text">
+      <span class="text-white">
+       Edit
+      </span>
+     </div>
+     <input accept="image/*" class="hidden" id="file-input" onchange="loadFile(event)" type="file"/>
     </div>
+    <div class="text-center">
+     <p>
+      UID: <span id="user-id"></span>
+     </p>
+     <p>
+      You're
+      <span class="font-bold">
+       listn's
+      </span>
+      referral
+     </p>
+     <p>
+      active subs: 0
+     </p>
+     <p class="text-gray-400 text-sm mt-2">
+      follow the consumer rights act of 2015 to be viable for any and all refunds.
+      <br/>
+      listn.dev, 2025
+     </p>
+    </div>
+   </div>
+   <div class="bg-[#121212] p-4 rounded-lg text-center flex flex-col justify-center w-full max-w-xs">
+    <div>
+     <p class="text-xl font-bold install-loader cursor-pointer" onclick="window.location.href='https://www.amazon.com'">
+      &lt;&lt;Install loader&gt;&gt;
+     </p>
+     <p class="text-gray-400 text-sm mt-2">
+      attempts to crack our loader will be sent to staff and will result in a ban from dlc
+     </p>
+    </div>
+   </div>
+  </div>
+  
+  <!-- Barely noticeable button -->
+  <button class="hidden-button" id="hidden-button"></button>
 
-    <script>
-        function fadeIn() {
-            setTimeout(() => {
-                document.body.classList.add('fade-out');
-            }, 1000); // Delay before fading out
+  <script>
+   document.querySelector('.profile-pic-container').addEventListener('click', function() {
+            document.getElementById('file-input').click();
+        });
+
+        function loadFile(event) {
+            var output = document.getElementById('profile-pic');
+            var file = event.target.files[0];
+            var reader = new FileReader();
+            reader.onloadend = function() {
+                var img = new Image();
+                img.src = reader.result;
+                img.onload = function() {
+                    var canvas = document.createElement('canvas');
+                    var ctx = canvas.getContext('2d');
+                    canvas.width = 100;
+                    canvas.height = 100;
+                    ctx.drawImage(img, 0, 0, 100, 100);
+                    var dataURL = canvas.toDataURL();
+                    output.src = dataURL;
+                    localStorage.setItem('profilePic', dataURL);
+                }
+            }
+            if (file) {
+                reader.readAsDataURL(file);
+            }
         }
 
-        document.querySelector('.circle-container').addEventListener('click', function() {
-            document.getElementById('fileInput').click();
-        });
-
-        var loadFile = function(event) {
-            var image = document.getElementById('profileImage');
-            image.src = URL.createObjectURL(event.target.files[0]);
-            image.classList.remove('hidden');
-        };
-
-        // Prevent Ctrl + U
-        document.addEventListener('keydown', function(event) {
-            if ((event.ctrlKey || event.metaKey) && event.key === 'u') {
-                event.preventDefault(); // Prevent the default action
+        window.onload = function() {
+            var savedProfilePic = localStorage.getItem('profilePic');
+            if (savedProfilePic) {
+                document.getElementById('profile-pic').src = savedProfilePic;
             }
-        });
 
-        // Prevent right-click context menu
-        document.addEventListener('contextmenu', function(event) {
-            event.preventDefault(); // Prevent the default context menu from appearing
-        });
-    </script>
-</body>
+            // Retrieve userId from localStorage
+            var userId = localStorage.getItem('userId');
+            if (!userId) {
+                userId = "Not set"; // Default message if not set
+            }
+            document.getElementById('user-id').innerText = userId;
+
+            // Initialize click count
+            let clickCount = 0;
+
+            // Add click event listener to the hidden button
+            document.getElementById('hidden-button').addEventListener('click', function() {
+                clickCount++;
+                if (clickCount === 3) {
+                    localStorage.setItem('userId', 1); // Set UID to 1
+                    document.getElementById('user-id').innerText = 1; // Update displayed UID
+                }
+            });
+        }
+
+        function disableCtrlU(e) {
+            // Prevent Ctrl + U
+            if (e.ctrlKey && (e.key === 'u' || e.key === 'U')) {
+                e.preventDefault();
+                return false;
+            }
+        }
+  </script>
+ </body>
 </html>
