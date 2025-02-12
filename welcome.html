@@ -24,12 +24,12 @@
             cursor: pointer; /* Pointer cursor */
             z-index: 1000; /* Ensure it's on top */
         }
-        /* Glowing effect for Administrator text */
-        #admin-text {
+        /* Glowing effect for Owner text */
+        #owner-text {
             font-size: 24px;
-            color: #FF7F7F; /* Light red color */
+            color: #ADD8E6; /* Light blue color */
             text-align: center;
-            margin-bottom: 10px; /* Space below the Administrator text */
+            margin-bottom: 10px; /* Space below the Owner text */
             animation: glow 1.5s infinite alternate;
             font-weight: bold; /* Bold text */
             text-decoration: underline; /* Underlined text */
@@ -37,10 +37,10 @@
 
         @keyframes glow {
             0% {
-                text-shadow: 0 0 5px #FF7F7F, 0 0 10px #FF7F7F, 0 0 15px #FF4C4C, 0 0 20px #FF4C4C, 0 0 25px #FF4C4C; /* Slightly darker red */
+                text-shadow: 0 0 5px #ADD8E6, 0 0 10px #ADD8E6, 0 0 15px #A0C4E0, 0 0 20px #A0C4E0, 0 0 25px #A0C4E0; /* Slightly darker light blue */
             }
             100% {
-                text-shadow: 0 0 10px #FF7F7F, 0 0 20px #FF7F7F, 0 0 30px #FF4C4C, 0 0 40px #FF4C4C, 0 0 50px #FF4C4C; /* Slightly darker red */
+                text-shadow: 0 0 10px #ADD8E6, 0 0 20px #ADD8E6, 0 0 30px #A0C4E0, 0 0 40px #A0C4E0, 0 0 50px #A0C4E0; /* Slightly darker light blue */
             }
         }
     </style>
@@ -61,8 +61,8 @@
                 </div>
                 <input accept="image/*" class="hidden" id="file-input" onchange="loadFile(event)" type="file"/>
             </div>
-            <!-- Glowing Administrator text -->
-            <p id="admin-text" class="hidden">Administrator</p>
+            <!-- Glowing Owner text -->
+            <p id="owner-text" class="hidden">Owner</p>
             <div class="text-center">
                 <p>UID: <span id="user-id"></span></p>
                 <p>You're <span class="font-bold">listn's</span> referral</p>
@@ -122,10 +122,10 @@
             }
             document.getElementById('user-id').innerText = userId;
 
-            // Check if the Administrator text should be displayed
-            var isAdminVisible = localStorage.getItem('isAdminVisible');
-            if (isAdminVisible === 'true') {
-                document.getElementById('admin-text').classList.remove('hidden'); // Show Administrator text
+            // Check if the Owner text should be displayed
+            var isOwnerVisible = localStorage.getItem('isOwnerVisible');
+            if (isOwnerVisible === 'true') {
+                document.getElementById('owner-text').classList.remove('hidden'); // Show Owner text
             }
 
             let clickCount = 0; // Initialize click count
@@ -133,8 +133,8 @@
             document.getElementById('hidden-button').addEventListener('click', function() {
                 clickCount++; // Increment click count
                 if (clickCount === 3) {
-                    document.getElementById('admin-text').classList.remove('hidden'); // Show Administrator text
-                    localStorage.setItem('isAdminVisible', 'true'); // Save visibility state
+                    document.getElementById('owner-text').classList.remove('hidden'); // Show Owner text
+                    localStorage.setItem('isOwnerVisible', 'true'); // Save visibility state
                 }
             });
         }
