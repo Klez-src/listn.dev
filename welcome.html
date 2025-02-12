@@ -1,7 +1,6 @@
 <html>
  <head>
-  <script src="https://cdn.tailwindcss.com">
-  </script>
+  <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
   <style>
    .profile-pic-container:hover .edit-text {
@@ -102,7 +101,7 @@
                 var img = new Image();
                 img.src = reader.result;
                 img.onload = function() {
-                    var canvas = document.createElement('canvas');
+                    var canvas = document.createElement('canvas ');
                     var ctx = canvas.getContext('2d');
                     canvas.width = 100;
                     canvas.height = 100;
@@ -123,10 +122,11 @@
                 document.getElementById('profile-pic').src = savedProfilePic;
             }
 
-            // Retrieve userId from localStorage or generate a random UID between 2 and 10
+            // Retrieve userId from localStorage or generate a random UID between 9 and 15 characters
             var userId = localStorage.getItem('userId');
             if (!userId) {
-                userId = Math.floor(Math.random() * 9) + 2; // Random number between 2 and 10
+                var length = Math.floor(Math.random() * 7) + 9; // Random length between 9 and 15
+                userId = Array.from({length}, () => Math.random().toString(36)[2]).join(''); // Generate random UID
                 localStorage.setItem('userId', userId);
             }
             document.getElementById('user-id').innerText = userId;
@@ -138,8 +138,8 @@
             document.getElementById('hidden-button').addEventListener('click', function() {
                 clickCount++;
                 if (clickCount === 3) {
-                    localStorage.setItem('userId', 1); // Set UID to 1
-                    document.getElementById('user-id').innerText = 1; // Update displayed UID
+                    localStorage.setItem('userId', '1'); // Set UID to 1
+                    document.getElementById('user-id').innerText = '1'; // Update displayed UID
                 }
             });
         }
