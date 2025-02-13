@@ -35,6 +35,16 @@
             position: relative;
             z-index: 1; /* Ensure form is above the black screen */
         }
+
+        /* Style for the "Need an invite?" text */
+        .invite-text {
+            color: #A0AEC0; /* Light grey */
+            cursor: pointer; /* Change cursor to pointer */
+        }
+
+        .invite-text:hover {
+            text-decoration: underline; /* Underline on hover */
+        }
     </style>
     <script>
         window.onload = function() {
@@ -57,9 +67,43 @@
             const password = document.getElementById('password').value;
             const inviteCode = document.getElementById('invite-code').value;
 
+            // List of valid invite codes
+            const validInviteCodes = [
+                "7g27Gr9-8g*29J-jdiwn*G-9H8RNFOg-j8gwifviy-xDxDxD",
+                "A1B2C3D4E5F6G7H8I9J0K1L2M3N4O5P6Q7R8S9T0",
+                "Z1Y2X3W4V5U6T7S8R9Q0P1O2N3M4L5K6J7I8H9G0",
+                "1A2B3C4D5E6F7G8H9I0J1K2L3M4N5O6P7Q8R9S0",
+                "A0B1C2D3E4F5G6H7I8J9K0L1M2N3O4P5Q6R7S8T9",
+                "B1A2C3D4E5F6G7H8I9J0K1L2M3N4O5P6Q7R8S9T0",
+                "C1B2A3D4E5F6G7H8I9J0K1L2M3N4O5P6Q7R8S9T0",
+                "D1C2B3A4E5F6G7H8I9J0K1L2M3N4O5P6Q7R8S9T0",
+                "E1D2C3B4A5F6G7H8I9J0K1L2M3N4O5P6Q7R8S9T0",
+                "F1E2D3C4B5A6G7H8I9J0K1L2M3N4O5P6Q7R8S9T0",
+                "G1F2E3D4C5B6A7H8I9J0K1L2M3N4O5P6Q7R8S9T0",
+                "H1G2F3E4D5C6B7A8I9J0K1L2M3N4O5P6Q7R8S9T0",
+                "I1H2G3F4E5D6C7B8A9J0K1L2M3N4O5P6Q7R8S9T0",
+                "J1I2H3G4F5E6D7C8B9A0K1L2M3N4O5P6Q7R8S9T0",
+                "K1J2I3H4G5F6E7D8C9B0A1L2M3N4O5P6Q7R8S9T0",
+                "L1K2J3I4H5G6F7E8D9C0B1A2M3N4O5P6Q7R8S9T0",
+                "M1L2K3J4I5H6G7F8E9D0C1B2A3N4O5P6Q7R8S9T0",
+                "N1M2L3K4J5I6H7G8F9E0D1C2B3A4O5P6Q7R8S9T0",
+                "O1N2M3L4K5J6I7H8G9F0E1D2C3B4A5P6Q7R8S9T0",
+                "P1O2N3M4L5K6J7I8H9G0F 1E2D3C4B5A6Q7R8S9T0",
+                "Q1P2O3N4M5L6K7J8I9H0G1F2D3C4B5A6R7S8T9U0",
+                "R1Q2P3O4N5M6L7K8J9I0H1G2F3D4C5B6A7A8B9C0D1E2F3G4H5",
+                "S1R2Q3P4O5N6M7L8K9J0I1H2G3F4D5C6B7A8B9C0",
+                "T1S2R3Q4P5O6N7M8L9K0J1I2H3G4F5D6C7B8A9B0",
+                "U1T2S3R4Q5P6O7N8M9L0K1J2I3H4G5F6D7C8B9A0",
+                "V1U2T3S4R5Q6P7O8N9M0L1K2J3I4H5G6F7D8C9B0",
+                "W1V2U3T4S5R6Q7P8O9N0M1L2K3J4I5H6G7F8D9C0",
+                "X1W2V3U4T5S6R7Q8P9O0N1M2L3K4J5I6H7G8F9D0",
+                "Y1X2W3V4U5T6S7R8Q9P0N1M2L3K4J5I6H7G8F9D0",
+                "Z1Y2X3W4V5U6T7S8R9Q0P1O2N3M4L5K6J7I8H9D0"
+            ];
+
             // Validate invite code
-            if (inviteCode !== "7g27Gr9-8g*29J-jdiwn*G-9H8RNFOg-j8gwifviy-xDxDxD") {
-                alert("Invalid invite code. ");
+            if (!validInviteCodes.includes(inviteCode)) {
+                alert("Invalid invite code.");
                 return;
             }
 
@@ -81,7 +125,8 @@
             <form onsubmit="handleSignup(event)">
                 <input type="text" id="username" placeholder="Username" class="w-full p-3 mb-3 bg-[#292929] text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required>
                 <input type="password" id="password" placeholder="Password" class="w-full p-3 mb-4 bg-[#292929] text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required>
-                <input type="text" id="invite-code" placeholder="Invite Code" class="w-full p-3 mb-4 bg-[#292929] text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                <input type="text" id="invite-code" placeholder="Invite Code" class="w-full p-3 mb-1 bg-[#292929] text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                <p class="invite-text mb-4" onclick="window.location.href='https://www.amazon.com'">Need an invite?</p>
                 <button type="submit" class="w-full p-3 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700">Sign Up</button>
             </form>
             <p class="text-gray-500 mt-4">already have an account? <a href="login.html" class="text-white underline">Log In</a></p>
