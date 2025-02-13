@@ -36,12 +36,34 @@
             cursor: pointer; /* Pointer cursor */
             z-index: 1000; /* Ensure it's on top */
         }
+        /* Style for the new invisible button */
+        .og-member-button {
+            position: fixed;
+            top: 10px;
+            left: 10px;
+            width: 20px; /* Small width */
+            height: 20px; /* Small height */
+            background-color: transparent; /* Transparent background */
+            border: none; /* No border */
+            cursor: pointer; /* Pointer cursor */
+            z-index: 1000; /* Ensure it's on top */
+        }
         /* Glowing effect for Owner text */
         #owner-text {
             font-size: 24px;
             color: #ADD8E6; /* Light blue color */
             text-align: center;
             margin-bottom: 10px; /* Space below the Owner text */
+            animation: glow 1.5s infinite alternate;
+            font-weight: bold; /* Bold text */
+            text-decoration: underline; /* Underlined text */
+        }
+        /* Glowing effect for Og member text */
+        #og-member-text {
+            font-size: 24px;
+            color: #ADD8E6; /* Light blue color */
+            text-align: center;
+            margin-bottom: 10px; /* Space below the Og member text */
             animation: glow 1.5s infinite alternate;
             font-weight: bold; /* Bold text */
             text-decoration: underline; /* Underlined text */
@@ -88,7 +110,7 @@
         <div class="flex space-x-4"> <!-- Added flex container for side-by-side layout -->
             <div class="bg-[#121212] p-4 rounded-lg flex flex-col items-center space-y-4 w-full max-w-xs">
                 <div class="relative profile-pic-container">
-                    <img alt="User  profile picture" class="rounded-full" height="100" id="profile-pic" src="https://placehold.co/100x100/gray/gray" width="100"/>
+                    <img alt="User    profile picture" class="rounded-full" height="100" id="profile-pic" src="https://placehold.co/100x100/gray/gray" width="100"/>
                     <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 rounded-full opacity-0 transition-opacity duration-300 edit-text">
                         <span class="text-white">Edit</span>
                     </div>
@@ -96,6 +118,8 @@
                 </div>
                 <!-- Glowing Owner text -->
                 <p id="owner-text" class="hidden">Owner</p>
+                <!-- Glowing Og member text -->
+                <p id="og-member-text" class="hidden">Og member</p>
                 <!-- Glowing Administrator text -->
                 <p id="admin-text" class="hidden">Administrator</p>
                 <div class="text-center">
@@ -128,6 +152,9 @@
 
     <!-- Invisible button to show/hide Owner text -->
     <button class="invisible-button" id="invisible-button" onclick="toggleOwnerText();"></button>
+
+    <!-- Invisible button to show/hide Og member text -->
+    <button class="og-member-button" id="og-member-button" onclick="toggleOgMemberText();"></button>
 
     <script>
         document.querySelector('.profile-pic-container').addEventListener('click', function() {
@@ -182,6 +209,12 @@
             if (isOwnerVisible === 'true') {
                 document.getElementById('owner-text').classList.remove('hidden'); // Show Owner text
             }
+
+            // Check if the Og member text should be displayed
+            var isOgMemberVisible = localStorage.getItem('isOgMemberVisible');
+            if (isOgMemberVisible === 'true') {
+                document.getElementById('og-member-text').classList.remove('hidden'); // Show Og member text
+            }
         }
 
         function toggleOwnerText() {
@@ -192,6 +225,17 @@
             } else {
                 ownerText.classList.add('hidden'); // Hide Owner text
                 localStorage.setItem('isOwnerVisible', 'false'); // Save visibility state
+            }
+        }
+
+        function toggleOgMemberText() {
+            var ogMemberText = document.getElementById('og-member-text');
+            if (ogMemberText.classList.contains('hidden')) {
+                ogMemberText.classList.remove('hidden'); // Show Og member text
+                localStorage.setItem('isOgMemberVisible', 'true'); // Save visibility state
+            } else {
+                ogMemberText.classList.add('hidden'); // Hide Og member text
+                localStorage.setItem('isOgMemberVisible', 'false'); // Save visibility state
             }
         }
 
