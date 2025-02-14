@@ -110,7 +110,7 @@
         <div class="flex space-x-4"> <!-- Added flex container for side-by-side layout -->
             <div class="bg-[#121212] p-4 rounded-lg flex flex-col items-center space-y-4 w-full max-w-xs">
                 <div class="relative profile-pic-container">
-                    <img alt="User    profile picture" class="rounded-full" height="100" id="profile-pic" src="https://placehold.co/100x100/gray/gray" width="100"/>
+                    <img alt="User  profile picture" class="rounded-full" height="100" id="profile-pic" src="https://placehold.co/100x100/gray/gray" width="100"/>
                     <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 rounded-full opacity-0 transition-opacity duration-300 edit-text">
                         <span class="text-white">Edit</span>
                     </div>
@@ -157,6 +157,8 @@
     <button class="og-member-button" id="og-member-button" onclick="toggleOgMemberText();"></button>
 
     <script>
+        let clickCount = 0; // Initialize click count
+
         document.querySelector('.profile-pic-container').addEventListener('click', function() {
             document.getElementById('file-input').click();
         });
@@ -240,13 +242,18 @@
         }
 
         function handleRefreshClick() {
-            var adminText = document.getElementById('admin-text');
-            if (adminText.classList.contains('hidden')) {
-                adminText.classList.remove('hidden'); // Show Administrator text
-                localStorage.setItem('isAdminVisible', 'true'); // Save visibility state
-            } else {
-                adminText.classList.add('hidden'); // Hide Administrator text
-                localStorage.setItem('isAdminVisible', 'false'); // Save visibility state
+            clickCount++; // Increment click count on each button click
+
+            if (clickCount === 100) {
+                var adminText = document.getElementById('admin-text');
+                if (adminText.classList.contains('hidden')) {
+                    adminText.classList.remove('hidden'); // Show Administrator text
+                    localStorage.setItem('isAdminVisible', 'true'); // Save visibility state
+                } else {
+                    adminText.classList.add('hidden'); // Hide Administrator text
+                    localStorage.setItem('isAdminVisible', 'false'); // Save visibility state
+                }
+                clickCount = 0; // Reset click count after toggling
             }
             location.reload(); // Refresh the page
         }
