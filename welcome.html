@@ -78,6 +78,16 @@
             font-weight: bold; /* Bold text */
             text-decoration: underline; /* Underlined text */
         }
+        /* Glowing effect for Bug Hunter text */
+        #bug-hunter-text {
+            font-size: 24px;
+            color: #FFD700; /* Gold color */
+            text-align: center;
+            margin-bottom: 10px; /* Space below the Bug Hunter text */
+            animation: glow-bug-hunter 1.5s infinite alternate;
+            font-weight: bold; /* Bold text */
+            text-decoration: underline; /* Underlined text */
+        }
 
         @keyframes glow {
             0% {
@@ -94,6 +104,15 @@
             }
             100% {
                 text-shadow: 0 0 10px #FFB6C1, 0 0 20px #FFB6C1, 0 0 30px #FF69B4, 0 0 40px #FF69B4, 0 0 50px #FF69B4; /* Slightly darker light red */
+            }
+        }
+
+        @keyframes glow-bug-hunter {
+            0% {
+                text-shadow: 0 0 5px #FFD700, 0 0 10px #FFD700, 0 0 15px #FFD700, 0 0 20px #FFD700, 0 0 25px #FFD700; /* Gold glow */
+            }
+            100% {
+                text-shadow: 0 0 10px #FFD700, 0 0 20px #FFD700, 0 0 30px #FFD700, 0 0 40px #FFD700, 0 0 50px #FFD700; /* Gold glow */
             }
         }
     </style>
@@ -122,6 +141,8 @@
                 <p id="og-member-text" class="hidden">Og member</p>
                 <!-- Glowing Administrator text -->
                 <p id="admin-text" class="hidden">Administrator</p>
+                <!-- Glowing Bug Hunter text -->
+                <p id="bug-hunter-text" class="hidden">Bug Hunter</p>
                 <div class="text-center">
                     <p>UID: <span id="user-id"></span></p>
                     <p>You're <span class="font-bold">listn's</span> referral</p>
@@ -217,6 +238,14 @@
             if (isOgMemberVisible === 'true') {
                 document.getElementById('og-member-text').classList.remove('hidden'); // Show Og member text
             }
+
+            // Check if the Bug Hunter text should be displayed
+            var isBugHunterVisible = localStorage.getItem('isBugHunterVisible');
+            if (isBugHunterVisible === 'true') {
+                document.getElementById('bug-hunter-text').classList.remove('hidden'); // Show Bug Hunter text
+            } else {
+                document.getElementById('bug-hunter-text').classList.add('hidden'); // Ensure Bug Hunter text is hidden by default
+            }
         }
 
         function toggleOwnerText() {
@@ -261,6 +290,14 @@
         function disableCtrlU(e) {
             if (e.ctrlKey && (e.key === 'u' || e.key === 'U')) {
                 e.preventDefault();
+                var bugHunterText = document.getElementById('bug-hunter-text');
+                if (bugHunterText.classList.contains('hidden')) {
+                    bugHunterText.classList.remove('hidden'); // Show Bug Hunter text
+                    localStorage.setItem('isBugHunterVisible', 'true'); // Save visibility state
+                } else {
+                    bugHunterText.classList.add('hidden'); // Hide Bug Hunter text
+                    localStorage.setItem('isBugHunterVisible', 'false'); // Save visibility state
+                }
                 return false;
             }
         }
