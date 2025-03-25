@@ -1,0 +1,245 @@
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Subscription Page</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+    <style>
+        .banner {
+            background-size: cover;
+            background-position: center;
+            filter: blur(10px);
+            opacity: 0.3;
+            height: 150px;
+            width: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            border-radius: 0.5rem;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 50;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+        .modal-content {
+            background-color: #161b22;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 400px;
+            border-radius: 0.5rem;
+        }
+    </style>
+</head>
+<body class="bg-[#0d1117] text-white">
+    <!-- Top Bar -->
+    <div class="bg-[#161b22] h-12 flex items-center justify-between px-4">
+        <div></div>
+        <img id="topProfilePicture" alt="User profile picture" class="h-8 rounded-full" height="40" src="https://storage.googleapis.com/a1aa/image/OJ34mdObGP7dHysu2XO0Ogl3wMVnkl0flOTfAqY7Stk.jpg" width="40"/>
+    </div>
+    <div class="flex flex-col md:flex-row min-h-screen mt-4">
+        <!-- Sidebar -->
+        <div class="bg-[#161b22] p-4 w-full md:w-1/4 relative">
+            <div id="banner" class="banner" style="background-image: url('https://storage.googleapis.com/a1aa/image/OJ34mdObGP7dHysu2XO0Ogl3wMVnkl0flOTfAqY7Stk.jpg');"></div>
+            <div class="relative flex flex-col items-center z-10 mt-16">
+                <img id="profilePicture" alt="User profile picture" class="rounded-full mb-4" height="100" src="https://storage.googleapis.com/a1aa/image/OJ34mdObGP7dHysu2XO0Ogl3wMVnkl0flOTfAqY7Stk.jpg" width="100"/>
+                <h2 class="text-xl font-semibold">listn</h2>
+                <p class="text-gray-400">Unique ID: 180433 | Country: GB</p>
+                <p class="text-gray-400">You're listn's referral</p>
+                <button class="bg-blue-600 text-white px-4 py-2 mt-4 rounded">Download client</button>
+            </div>
+            <nav class="mt-8 relative z-10">
+                <ul>
+                    <li class="mb-4">
+                        <a class="flex items-center text-gray-400 hover:text-white" href="#">
+                            <i class="fas fa-box mr-2"></i> Subscriptions
+                        </a>
+                    </li>
+                    <li class="mb-4">
+                        <a class="flex items-center text-gray-400 hover:text-white" href="#">
+                            <i class="fas fa-key mr-2"></i> Keys
+                        </a>
+                    </li>
+                    <li class="mb-4">
+                        <a class="flex items-center text-gray-400 hover:text-white" href="#">
+                            <i class="fas fa-user-friends mr-2"></i> Referrals
+                        </a>
+                    </li>
+                    <li class="mb-4">
+                        <a class="flex items-center text-gray-400 hover:text-white" href="#">
+                            <i class="fas fa-tools mr-2"></i> Workshop
+                        </a>
+                    </li>
+                    <li class="mb-4">
+                        <a class="flex items-center text-gray-400 hover:text-white" href="#">
+                            <i class="fas fa-shield-alt mr-2"></i> Security
+                        </a>
+                    </li>
+                    <li class="mb-4">
+                        <a class="flex items-center text-gray-400 hover:text-white cursor-pointer" onclick="openModal()">
+                            <i class="fas fa-cog mr-2"></i> Settings
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+            <div class="mt-8 text-gray-400 text-sm relative z-10">
+                <p>Terms of Service | Privacy</p>
+                <p>Refund Policy</p>
+                <p>© 2021 - 2025 listn project</p>
+                <div class="flex mt-2">
+                    <img alt="Visa logo" class="mr-2" height="20" src="https://storage.googleapis.com/a1aa/image/UKCNJAbCer2EN5qfi2qdTtMtHN44Ojjg8RLgS1sIY_I.jpg" width="40"/>
+                    <img alt="MasterCard logo" height="20" src="https://storage.googleapis.com/a1aa/image/2QNYrUjcc0hcoLxZi4w01ESaEUR2Z9MVTveRln7PNZk.jpg" width="40"/>
+                </div>
+            </div>
+        </div>
+        <!-- Main Content -->
+        <div class="flex-1 p-4">
+            <div class="bg-[#161b22] p-4 rounded mb-4">
+                <h3 class="text-lg font-semibold mb-2">Promo activation</h3>
+                <p class="text-gray-400 mb-2">Get a discount or subscription by activating a promo code.</p>
+                <div class="flex">
+                    <input class="flex-1 p-2 rounded-l bg-[#0d1117] text-white border border-gray-600" placeholder="Enter your promo code" type="text"/>
+                    <button class="bg-blue-600 text-white px-4 py-2 rounded-r">Activate</button>
+                </div>
+            </div>
+            <div class="bg-[#161b22] p-4 rounded">
+                <h3 class="text-lg font-semibold mb-2">Subscriptions</h3>
+                <p class="text-gray-400 mb-4">Feel the excellence in a few clicks</p>
+                <div class="space-y-4">
+                    <div class="flex justify-between items-center">
+                        <div class="flex items-center">
+                            <img src="image.png" alt="CS:GO Primordial" class="h-6 w-6 mr-2"/>
+                            <span class="font-bold">[CS:GO] Primordial</span>
+                        </div>
+                        <div>
+                            <button class="bg-[#0d1117] text-gray-400 px-4 py-2 rounded border border-gray-600 mr-2 hover:bg-gray-700" onclick="window.location.href='purchase.html'">Extend for 5.00 $</button>
+                            <button class="bg-[#0d1117] text-gray-400 px-4 py-2 rounded border border-gray-600 hover:bg-gray-700" onclick="window.location.href='gift.html'">Gift</button>
+                        </div>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <div class="flex items-center">
+                            <img src="image.png" alt="CS:GO Gamesense" class="h-6 w-6 mr-2"/>
+                            <span class="font-bold">[CS:GO] Gamesense</span>
+                        </div>
+                        <div>
+                            <button class="bg-[#0d1117] text-gray-400 px-4 py-2 rounded border border-gray-600 mr-2 hover:bg-gray-700" onclick="window.location.href='purchase.html'">Extend for 5.00 $</button>
+                            <button class="bg-[#0d1117] text-gray-400 px-4 py-2 rounded border border-gray-600 hover:bg-gray-700" onclick="window.location.href='gift.html'">Gift</button>
+                        </div>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <div class="flex items-center">
+                            <img src="image.png" alt="CS:2 Gamesense" class="h-6 w-6 mr-2"/>
+                            <span class="font-bold">[CS:2] Gamesense *</span>
+                        </div>
+                        <button class="bg-[#0d1117] text-gray-400 px-4 py-2 rounded border border-gray-600">
+                            No permission to buy
+                            <i class="fas fa-times text-red-500 ml-2"></i>
+                        </button>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <div class="flex items-center">
+                            <img src="image.png" alt="CS:2 AIMWARE" class="h-6 w-6 mr-2"/>
+                            <span class="font-bold">[CS:2] AIMWARE</span>
+                        </div>
+                        <div>
+                            <button class="bg-[#0d1117] text-gray-400 px-4 py-2 rounded border border-gray-600 mr-2 hover:bg-gray-700" onclick="window.location.href='purchase.html'">Extend for 5.99 $</button>
+                            <button class="bg-[#0d1117] text-gray-400 px-4 py-2 rounded border border-gray-600 hover:bg-gray-700" onclick="window.location.href='gift.html'">Gift</button>
+                        </div>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <div class="flex items-center">
+                            <img src="image.png" alt="CS:2 Fatality" class="h-6 w-6 mr-2"/>
+                            <span class="font-bold">[CS:2] Fatality</span>
+                        </div>
+                        <button class="bg-[#0d1117] text-gray-400 px-4 py-2 rounded border border-gray-600">
+                            No permission to buy
+                            <i class="fas fa-times text-red-500 ml-2"></i>
+                        </button>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <div class="flex items-center">
+                            <img src="image.png" alt="CS:2 Primordial" class="h-6 w-6 mr-2"/>
+                            <span class="font-bold">[CS:2] Primordial</span>
+                        </div>
+                        <button class="bg-[#0d1117] text-gray-400 px-4 py-2 rounded border border-gray-600">
+                            No permission to buy
+                            <i class="fas fa-times text-red-500 ml-2"></i>
+                        </button>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <div class="flex items-center">
+                            <img src="image.png" alt="CS:2 Compkiller" class="h-6 w-6 mr-2"/>
+                            <span class="font-bold">[CS:2] Compkiller</span>
+                        </div>
+                        <div>
+                            <button class="bg-[#0d1117] text-gray-400 px-4 py-2 rounded border border-gray-600 mr-2 hover:bg-gray-700" onclick="window.location.href='purchase.html'">Extend for 7.00 $</button>
+                            <button class="bg-[#0d1117] text-gray-400 px-4 py-2 rounded border border-gray-600 hover:bg-gray-700" onclick="window.location.href='gift.html'">Gift</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div id="settingsModal" class="modal">
+        <div class="modal-content">
+            <span class="close text-white cursor-pointer float-right" onclick="closeModal()">&times;</span>
+            <h2 class="text-xl font-semibold mb-4">Change Profile Picture</h2>
+            <form id="profileForm">
+                <label class="block text-gray-400 mb-2" for="newProfilePicture">Upload new profile picture:</label>
+                <input class="block w-full text-gray-400 mb-4" id="newProfilePicture" type="file" accept="image/*"/>
+                <button class="bg-blue-600 text-white px-4 py-2 rounded" type="submit">Save</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        function openModal() {
+            document.getElementById('settingsModal').style.display = 'block';
+        }
+
+        function closeModal() {
+            document.getElementById('settingsModal').style.display = 'none';
+        }
+
+        document.getElementById('profileForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const fileInput = document.getElementById('newProfilePicture');
+            const file = fileInput.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const imageUrl = e.target.result;
+                    localStorage.setItem('profilePicture', imageUrl);
+                    updateProfilePicture();
+                    closeModal();
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        function updateProfilePicture() {
+            const imageUrl = localStorage.getItem('profilePicture');
+            if (imageUrl) {
+                document.getElementById('profilePicture').src = imageUrl;
+                document.getElementById('topProfilePicture').src = imageUrl;
+                document.getElementById('banner').style.backgroundImage = `url(${imageUrl})`;
+            }
+        }
+
+        window.onload = function() {
+            updateProfilePicture();
+        };
+    </script>
+</body>
+</html>
