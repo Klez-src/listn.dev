@@ -109,9 +109,10 @@
                 <h3 class="text-lg font-semibold mb-2">Promo activation</h3>
                 <p class="text-gray-400 mb-2">Get a discount or subscription by activating a promo code.</p>
                 <div class="flex">
-                    <input class="flex-1 p-2 rounded-l bg-[#0d1117] text-white border border-gray-600" placeholder="Enter your promo code" type="text"/>
-                    <button class="bg-blue-600 text-white px-4 py-2 rounded-r">Activate</button>
+                    <input id="promoCodeInput" class="flex-1 p-2 rounded-l bg-[#0d1117] text-white border border-gray-600" placeholder="Enter your promo code" type="text"/>
+                    <button class="bg-blue-600 text-white px-4 py-2 rounded-r" onclick="redeemCode()">Activate</button>
                 </div>
+                <p id="promoMessage" class="mt-2 text-gray-400"></p>
             </div>
             <div class="bg-[#161b22] p-4 rounded">
                 <h3 class="text-lg font-semibold mb-2">Subscriptions</h3>
@@ -127,6 +128,7 @@
                             <button class="bg-[#0d1117] text-gray-400 px-4 py-2 rounded border border-gray-600 hover:bg-gray-700" onclick="window.location.href='gift.html'">Gift</button>
                         </div>
                     </div>
+                    <p id="primordialStatus" class="text-gray-400"></p>
                     <div class="flex justify-between items-center">
                         <div class="flex items-center">
                             <img src="image.png" alt="CS:GO Gamesense" class="h-6 w-6 mr-2"/>
@@ -137,6 +139,7 @@
                             <button class="bg-[#0d1117] text-gray-400 px-4 py-2 rounded border border-gray-600 hover:bg-gray-700" onclick="window.location.href='gift.html'">Gift</button>
                         </div>
                     </div>
+                    <p id="gamesenseStatus" class="text-gray-400"></p>
                     <div class="flex justify-between items-center">
                         <div class="flex items-center">
                             <img src="image.png" alt="CS:2 Gamesense" class="h-6 w-6 mr-2"/>
@@ -157,6 +160,7 @@
                             <button class="bg-[#0d1117] text-gray-400 px-4 py-2 rounded border border-gray-600 hover:bg-gray-700" onclick="window.location.href='gift.html'">Gift</button>
                         </div>
                     </div>
+                    <p id="aimwareStatus" class="text-gray-400"></p>
                     <div class="flex justify-between items-center">
                         <div class="flex items-center">
                             <img src="fatality.png" alt="CS:2 Fatality" class="h-6 w-6 mr-2"/>
@@ -187,6 +191,7 @@
                             <button class="bg-[#0d1117] text-gray-400 px-4 py-2 rounded border border-gray-600 hover:bg-gray-700" onclick="window.location.href='gift.html'">Gift</button>
                         </div>
                     </div>
+                    <p id="compkillerStatus" class="text-gray-400"></p>
                     <!-- New Product: [CS:2] Plaguecheat -->
                     <div class="flex justify-between items-center">
                         <div class="flex items-center">
@@ -198,6 +203,7 @@
                             <button class="bg-[#0d1117] text-gray-400 px-4 py-2 rounded border border-gray-600 hover:bg-gray-700" onclick="window.location.href='gift.html'">Gift</button>
                         </div>
                     </div>
+                    <p id="plaguecheatStatus" class="text-gray-400"></p>
                 </div>
             </div>
         </div>
@@ -257,9 +263,101 @@
             document.getElementById('banner').style.backgroundImage = `url(${imageUrl})`;
         }
 
+        function redeemCode() {
+            const code = document.getElementById('promoCodeInput').value.trim();
+            const messageElement = document.getElementById('promoMessage');
+
+            let subscriptionDuration = 0;
+            let subscriptionName = '';
+            let statusElementId = '';
+
+            switch (code.length) {
+                case 17:
+                    subscriptionName = '[CS:GO] Primordial';
+                    subscriptionDuration = 30;
+                    statusElementId = 'primordialStatus';
+                    break;
+                case 18:
+                    subscriptionName = '[CS:GO] Gamesense';
+                    subscriptionDuration = 30;
+                    statusElementId = 'gamesenseStatus';
+                    break;
+                case 22:
+                    subscriptionName = '[CS:2] AIMWARE';
+                    subscriptionDuration = 30;
+                    statusElementId = 'aimwareStatus';
+                    break;
+                case 24:
+                    subscriptionName = '[CS:2] Compkiller';
+                    subscriptionDuration = 30;
+                    statusElementId = 'compkillerStatus';
+                    break;
+                case 26:
+                    subscriptionName = '[CS:2] Plaguecheat';
+                    subscriptionDuration = 30;
+                    statusElementId = 'plaguecheatStatus';
+                    break;
+                default:
+                    messageElement.textContent = 'Invalid Code.';
+                    return;
+            }
+
+            // Store the subscription in local storage
+            const expirationDate = new Date();
+            expirationDate.setDate(expirationDate.getDate() + subscriptionDuration);
+            localStorage.setItem('subscription', JSON.stringify({ name: subscriptionName, expires: expirationDate }));
+
+            messageElement.textContent = 'Code Redeemed.';
+            updateSubscriptionStatus(statusElementId, subscriptionDuration);
+            startCountdown();
+        }
+
+        function updateSubscriptionStatus(statusElementId, duration) {
+            document.getElementById(statusElementId).textContent = `${duration} days left on your subscription.`;
+        }
+
+        function startCountdown() {
+            const subscriptionData = JSON.parse(localStorage.getItem('subscription'));
+            const now = new Date();
+
+            // Reset all statuses
+            document.getElementById('primordialStatus').textContent = '';
+            document.getElementById('gamesenseStatus').textContent = '';
+            document.getElementById('aimwareStatus').textContent = '';
+            document.getElementById('compkillerStatus').textContent = '';
+            document.getElementById('plaguecheatStatus').textContent = '';
+
+            if (subscriptionData) {
+                const expirationDate = new Date(subscriptionData.expires);
+                const daysLeft = Math.ceil((expirationDate - now) / (1000 * 60 * 60 * 24));
+
+                if (daysLeft > 0) {
+                    updateSubscriptionStatus(subscriptionData.name.toLowerCase().replace(/[\[\] ]/g, '').replace(/:/g, '') + 'Status', daysLeft);
+                } else {
+                    document.getElementById('promoMessage').textContent = 'Subscription expired.';
+                    localStorage.removeItem('subscription');
+                }
+
+                // Update every day
+                setTimeout(startCountdown, 86400000); // 86400000 ms = 1 day
+            }
+        }
+
         window.onload = function() {
             updateProfilePicture();
+            initializeDefaultSubscription();
+            startCountdown();
         };
+
+        function initializeDefaultSubscription() {
+            const existingSubscription = localStorage.getItem('subscription');
+            if (!existingSubscription) {
+                const expirationDate = new Date();
+                expirationDate.setDate(expirationDate.getDate() + 30); // Set default to 30 days
+                localStorage.setItem('subscription', JSON.stringify({ name: '[Default Subscription]', expires: expirationDate }));
+                updateSubscriptionStatus('plaguecheatStatus', 30); // Display default subscription status
+            }
+        }
     </script>
 </body>
 </html>
