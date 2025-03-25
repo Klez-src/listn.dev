@@ -38,23 +38,27 @@
             max-width: 400px;
             border-radius: 0.5rem;
         }
+        .glow {
+            text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #00f, 0 0 20px #00f, 0 0 25px #00f;
+            transition: text-shadow 0.3s ease-in-out;
+        }
     </style>
 </head>
 <body class="bg-[#0d1117] text-white">
     <!-- Top Bar -->
     <div class="bg-[#161b22] h-12 flex items-center justify-between px-4">
         <div></div>
-        <div class="h-8 w-8 rounded-full overflow-hidden">
-            <img id="topProfilePicture" alt="User  profile picture" class="h-full w-full object-cover" src="https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png"/>
-        </div>
+        <button id="profileButton" class="h-8 w-8 rounded-full overflow-hidden focus:outline-none">
+            <img id="topProfilePicture" alt="User profile picture" class="h-full w-full object-cover" src="https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png"/>
+        </button>
     </div>
     <div class="flex flex-col md:flex-row min-h-screen mt-4">
         <!-- Sidebar -->
         <div class="bg-[#161b22] p-4 w-full md:w-1/4 relative">
             <div id="banner" class="banner" style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png');"></div>
             <div class="relative flex flex-col items-center z-10 mt-16">
-                <img id="profilePicture" alt="User  profile picture" class="rounded-full mb-4" height="100" src="https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png" width="100"/>
-                <h2 class="text-xl font-semibold">listn</h2>
+                <img id="profilePicture" alt="User profile picture" class="rounded-full mb-4" height="100" src="https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png" width="100"/>
+                <h2 id="username" class="text-xl font-semibold">listn</h2>
                 <p class="text-gray-400">Unique ID: 180433 | Country: GB</p>
                 <p class="text-gray-400">You're listn's referral</p>
                 <button class="bg-blue-600 text-white px-4 py-2 mt-4 rounded">Download client</button>
@@ -260,6 +264,12 @@
         window.onload = function() {
             updateProfilePicture();
         };
+
+        // Add click event to the profile button
+        document.getElementById('profileButton').addEventListener('click', function() {
+            const username = document.getElementById('username');
+            username.classList.toggle('glow');
+        });
     </script>
 </body>
 </html>
